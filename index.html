@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ironmon</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="/app/bower_components/angular-deckgrid/angular-deckgrid.js"></script>
+    <script src="/app/bower_components/me-lazyload/me-lazyload.js"></script>
+
+    <script src ="/script/app.js"></script>
+    <link rel="stylesheet" href="style/app.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body ng-app="miniFlickr", ng-controller="PhotoCtrl">
+      <div class="container">
+          <div class="page-header ">
+              <div class="row">
+                  <div class="col-xs-12 col-md-8">
+                      <h1>A Page of Life</h1>
+                      <h4>Designed By Haoran</h4>
+                  </div>
+                  <div class="col-xs-12 col-md-4 instruction">
+
+
+                      <div class="btn-group pin-button-group">
+
+                          <label id="label2" class="btn btn-default pin-button xxx" ng-class="{'btn-danger': likeFilter === 'like'}"
+                                 ng-click="toggleLike('like')">
+                              Like
+                          </label>
+
+                          <label id="label1" class="btn btn-default pin-button" ng-class="{'btn-danger': likeFilter === 'all'}"
+                                    ng-click="toggleLike('all')" >
+                                 All
+                          </label>
+
+                          <p class="instr_word">Click the photo and save the photo on like category</p>
+                      </div>
+
+
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div id="searchBox" class="col-md-4 pull-right">
+                  <div class="input-group search-input-group">
+                      <input type="text" class="form-control" placeholder="Search Tags"
+                             ng-model="tagsFilter" ng-change="searchTags()"/>
+                      <span class="input-group-addon search-addon">
+                              <label class="btn btn-default search-button">
+                                     <span class="glyphicon glyphicon-search"></span>
+                              </label>
+                      </span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div deckgrid source="filteredPhotos" class="deckgrid">
+                  <div class="a-card" ng-mouseleave="hoverPin = false" ng-mouseover="hoverPin = true">
+                      <a ng-href="{{card.link}}" target = "_blank">
+                          <img lazy-src="{{card.src}}" animate-visible="true" animate-speed="6s" >
+                      </a>
+                      <h3>{{card.title}}</h3>
+                      <div class="a-card-tags">
+                          Tags: {{card.tags}}
+                      </div>
+                      <div class="a-card-pin">
+                          <img src="/img/endorse.jpg" class ="a-card-pin-icon" ng-show="hoverPin||card.like"
+                          ng-click="mother.likeit(card.$index)">
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+</body>
+</html>
